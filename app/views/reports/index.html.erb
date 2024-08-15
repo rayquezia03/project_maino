@@ -1,53 +1,112 @@
-<div class="report-container">
-  <h1>Relatórios</h1>
-  <%= link_to 'Exportar Dados', export_documents_path(format: :xlsx), class: 'btn btn-primary' %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Relatórios</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .report-container {
+      margin-top: 20px;
+    }
+    .table {
+      margin-bottom: 20px;
+    }
+    .table th {
+      background-color: #007bff;
+      color: white;
+    }
+    .filter-container {
+      margin-bottom: 20px;
+    }
+    .filter-group {
+      margin-bottom: 15px;
+    }
+    .filter-actions {
+      margin-top: 15px;
+    }
+    .btn-primary, .btn-secondary {
+      margin-right: 10px;
+    }
+    .text-bold-underline {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container report-container">
+    <h1 class="text-center">Relatórios</h1>
+    <%= link_to 'Exportar Dados', export_documents_path(format: :xlsx), class: 'btn btn-primary' %>
 
-  <div class="filter-container">
-    <%= form_with(url: reports_path, method: :get, local: true) do |f| %>
-      <div class="filter-group">
-        <%= f.label :nome_emitente, "Nome do Emitente" %>
-        <%= f.select :nome_emitente, options_for_select(@nome_emitente_options, params.dig(:filter, :nome_emitente)), { include_blank: "Selecione" }, class: "filter-select" %>
-      </div>
+    <div class="filter-container">
+      <%= form_with(url: reports_path, method: :get, local: true) do |f| %>
+        <div class="filter-group">
+          <%= f.label :nome_emitente, "Nome do Emitente" %>
+          <%= f.select :nome_emitente, options_for_select(@nome_emitente_options, params.dig(:filter, :nome_emitente)), { include_blank: "Selecione" }, class: "form-control" %>
+        </div>
 
-      <div class="filter-group">
-        <%= f.label :cnpj_emitente, "CNPJ do Emitente" %>
-        <%= f.select :cnpj_emitente, options_for_select(@cnpj_emitente_options, params.dig(:filter, :cnpj_emitente)), { include_blank: "Selecione" }, class: "filter-select" %>
-      </div>
+        <div class="filter-group">
+          <%= f.label :cnpj_emitente, "CNPJ do Emitente" %>
+          <%= f.select :cnpj_emitente, options_for_select(@cnpj_emitente_options, params.dig(:filter, :cnpj_emitente)), { include_blank: "Selecione" }, class: "form-control" %>
+        </div>
 
-      <div class="filter-group">
-        <%= f.label :nome_destinatario, "Nome do Destinatário" %>
-        <%= f.select :nome_destinatario, options_for_select(@nome_destinatario_options, params.dig(:filter, :nome_destinatario)), { include_blank: "Selecione" }, class: "filter-select" %>
-      </div>
+        <div class="filter-group">
+          <%= f.label :nome_destinatario, "Nome do Destinatário" %>
+          <%= f.select :nome_destinatario, options_for_select(@nome_destinatario_options, params.dig(:filter, :nome_destinatario)), { include_blank: "Selecione" }, class: "form-control" %>
+        </div>
 
-      <div class="filter-group">
-        <%= f.label :uf_emitente, "UF Emitente" %>
-        <%= f.select :uf_emitente, options_for_select(@uf_emitente_options, params.dig(:filter, :uf_emitente)), { include_blank: "Selecione" }, class: "filter-select" %>
-      </div>
+        <div class="filter-group">
+          <%= f.label :uf_emitente, "UF Emitente" %>
+          <%= f.select :uf_emitente, options_for_select(@uf_emitente_options, params.dig(:filter, :uf_emitente)), { include_blank: "Selecione" }, class: "form-control" %>
+        </div>
 
-      <div class="filter-group">
-        <%= f.label :produto, "Produto" %>
-        <%= f.select :produto, options_for_select(@product_options, params.dig(:filter, :produto)), { include_blank: "Selecione" }, class: "filter-select" %>
-      </div>
+        <div class="filter-group">
+          <%= f.label :produto, "Produto" %>
+          <%= f.select :produto, options_for_select(@product_options, params.dig(:filter, :produto)), { include_blank: "Selecione" }, class: "form-control" %>
+        </div>
 
-      <div class="filter-actions">
-        <%= f.submit "Filtrar", class: "btn-filter" %>
-        <%= link_to "Limpar Filtros", reports_path, class: "btn-clear" %>
-      </div>
-    <% end %>
-  </div>
+        <div class="filter-actions">
+          <%= f.submit "Filtrar", class: "btn btn-primary" %>
+          <%= link_to "Limpar Filtros", reports_path, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
 
-  <div class="report-details">
-    <% @reports.each do |report| %>
-      <div class="report-card">
-        <h3>===============================</h3>
-        <p><strong>Número de Série:</strong> <%= report[:document].serie %></p>
-        <p><strong>Número da Nota Fiscal:</strong> <%= report[:document].nNF %></p>
-        <p><strong>Data e Hora de Emissão:</strong> <%= report[:document].dhEmi %></p>
-        <p><strong>Emitente:</strong> <%= report[:document].nome_emitente %> (CNPJ: <%= report[:document].cnpj_emitente %>)</p>
-        <p><strong>Destinatário:</strong> <%= report[:document].nome_destinatario %> (CNPJ: <%= report[:document].cnpj_destinatario %>)</p>
+    <div class="report-details">
+      <% @reports.each_with_index do |report, index| %>
+        <h3 class="mt-4 text-center text-bold-underline">Relatório - Doc id: <%= index + 1 %></h3>
+        
+        <h4>Informações do Documento</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Número da Nota Fiscal</th>
+              <th>Data e Hora de Emissão</th>
+              <th>Emitente</th>
+              <th>CNPJ Emitente</th>
+              <th>Destinatário</th>
+              <th>CNPJ Destinatário</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= report[:document].nNF %></td>
+              <td><%= report[:document].dhEmi %></td>
+              <td><%= report[:document].nome_emitente %></td>
+              <td><%= report[:document].cnpj_emitente %></td>
+              <td><%= report[:document].nome_destinatario %></td>
+              <td><%= report[:document].cnpj_destinatario %></td>
+            </tr>
+          </tbody>
+        </table>
 
-        <h3>Produtos Listados</h3>
-        <table>
+        <h4>Produtos Listados</h4>
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th>Nome</th>
@@ -72,8 +131,8 @@
           </tbody>
         </table>
 
-        <h3>Impostos Associados</h3>
-        <table>
+        <h4>Impostos Associados</h4>
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th>ICMS</th>
@@ -93,7 +152,11 @@
             <% end %>
           </tbody>
         </table>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

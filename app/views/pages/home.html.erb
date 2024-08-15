@@ -1,23 +1,21 @@
 <div class="home-container">
-  <h2>Opções</h2>
-  <p id="message"></p>
+  <h1>Bem-vindo ao Sistema de Importação de Notas Fiscais</h1>
 
-  <nav>
-    <ul>
-      <% if user_signed_in? %>
-        <li><%= link_to 'Editar Perfil', edit_user_registration_path %></li>
-        <!-- Botão de Logout -->
-        <li>
-          <%= form_with(url: destroy_user_session_path, method: :delete, local: true) do %>
-            <%= submit_tag 'Logout', class: 'logout-button' %>
-          <% end %>
-        </li>
-      <% else %>
-        <li><%= link_to 'Login', new_user_session_path %></li>
-        <li><%= link_to 'Cadastrar', new_user_registration_path %></li>
-      <% end %>
-    </ul>
-  </nav>
+  <section class="intro">
+    <h2>Sobre o Projeto</h2>
+    <p>
+      Este sistema foi desenvolvido para facilitar a importação e o processamento de Notas Fiscais Eletrônicas (NF-e). Com ele, você pode carregar arquivos XML individuais ou em lote (ZIP) e obter informações detalhadas sobre os documentos fiscais.
+    </p>
+  </section>
+
+  <section class="import-process">
+    <h2>Como Funciona o Processo de Importação</h2>
+    <p>
+      1. Selecione um arquivo XML ou um arquivo ZIP contendo múltiplos arquivos XML usando as opções abaixo.<br>
+      2. O sistema processará o arquivo, extraindo e armazenando informações detalhadas.<br>
+      3. Após o processamento, você verá uma confirmação de sucesso e poderá continuar com outras ações.
+    </p>
+  </section>
 </div>
 
 <%= javascript_pack_tag 'application' %>

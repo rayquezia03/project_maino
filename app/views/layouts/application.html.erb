@@ -14,16 +14,28 @@
   <header>
     <h1>
       <img src="https://i0.wp.com/maino.com.br/wp-content/uploads/2020/03/Logo-512x512-menor.png?fit=512%2C512&ssl=1" alt="Logo Mainô" class="logo">
-      Bem-vindo ao Meu Projeto
+      Bem-vindo ao Projeto Mainô
     </h1>
-    <nav>
-    <% if user_signed_in? %>
-      <ul>
-        <li><%= link_to 'Home', root_path %></li>
-        <li><%= link_to 'Importar NF', new_document_path %></li>
-        <li><%= link_to 'Relatório', reports_path %></li>
-      </ul>
-    <% end %>
+    <nav class="main-nav">
+      <% if user_signed_in? %>
+        <ul class="nav-list">
+          <li><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+          <li><%= link_to 'Importar NF', new_document_path, class: 'nav-link' %></li>
+          <li><%= link_to 'Relatório', reports_path, class: 'nav-link' %></li>
+        </ul>
+        <ul class="user-nav">
+          <li><%= link_to 'Editar Perfil', edit_user_registration_path, class: 'nav-link edit-profile' %></li>
+          <li>
+            <%= form_with(url: destroy_user_session_path, method: :delete, local: true) do %>
+              <%= submit_tag 'Logout', class: 'logout-button' %>
+            <% end %>
+          </li>
+        </ul>
+      <% else %>
+        <ul class="nav-list">
+          <li><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+        </ul>
+      <% end %>
     </nav>
   </header>
 
@@ -31,13 +43,12 @@
     <%= yield %>
   </div>
 
-  <%= javascript_pack_tag 'application' %> <!-- Para Webpacker -->
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
   <footer style="background-color: #778899; color: #00FFFF; text-align: center; padding: 10px 0;">
-  <p>A importação é um processo mais simples com a Mainô! : ) </p>
-
-  <li><%= link_to 'Sobre nos', about_me_path %></li>
+    <p>A importação é um processo mais simples com a Mainô! : ) </p>
+    <%= link_to 'Sobre nós', about_me_path, class: 'footer-link' %>
   </footer>
+
+  <%= javascript_pack_tag 'application' %> 
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>

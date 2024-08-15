@@ -3,19 +3,20 @@
 
   <%= form_with url: documents_path, local: true, html: { multipart: true } do |form| %>
     <div class="form-group">
-      <%= form.label :document, "Escolha um arquivo XML:", class: 'form-label' %>
+      <%= form.label :file, "Escolha um arquivo XML:", class: 'form-label' %>
       <%= form.file_field :file, accept: '.xml', class: 'file-input' %>
     </div>
     <%= form.submit 'Processar NF-e', class: 'submit-button' %>
   <% end %>
 </div>
+
 <div class="upload-container">
-<h2>Processamento em lote</h2>
-<h3>Selecionar Arquivo ZIP</h3>
+  <h2>Processamento em Lote</h2>
+  <h3>Selecionar Arquivo ZIP</h3>
 
   <%= form_with url: documents_path, local: true, html: { multipart: true } do |form| %>
     <div class="form-group">
-      <%= form.label :document, "Escolha um arquivo ZIP:", class: 'form-label' %>
+      <%= form.label :file, "Escolha um arquivo ZIP:", class: 'form-label' %>
       <%= form.file_field :file, accept: '.zip', class: 'file-input' %>
     </div>
     
@@ -25,7 +26,5 @@
     <%= form.submit 'Processar Arquivos ZIP', class: 'submit-button' %>
   <% end %>
 
-  <%= link_to 'Voltar', root_path, class: 'back-link' %>
+  <%= link_to 'Voltar', root_path, class: 'back-button' %>
 </div>
-
-<div class="upload-container">
