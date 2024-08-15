@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Projeto Mainô</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+
+  <link rel="icon" href="https://stats.maino.com.br/packs/media/images/logo_maino_footer-1861aa71b11c1bb8c678a2399d9d367f.png" type="image/png">
+</head>
+
+<body>
+  <header>
+    <h1>
+      <img src="https://i0.wp.com/maino.com.br/wp-content/uploads/2020/03/Logo-512x512-menor.png?fit=512%2C512&ssl=1" alt="Logo Mainô" class="logo">
+      Bem-vindo ao Meu Projeto
+    </h1>
+    <nav>
+    <% if user_signed_in? %>
+      <ul>
+        <li><%= link_to 'Home', root_path %></li>
+        <li><%= link_to 'Importar NF', new_document_path %></li>
+        <li><%= link_to 'Relatório', reports_path %></li>
+      </ul>
+    <% end %>
+    </nav>
+  </header>
+
+  <div class="container">
+    <%= yield %>
+  </div>
+
+  <%= javascript_pack_tag 'application' %> <!-- Para Webpacker -->
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  <footer style="background-color: #778899; color: #00FFFF; text-align: center; padding: 10px 0;">
+  <p>A importação é um processo mais simples com a Mainô! : ) </p>
+
+  <li><%= link_to 'Sobre nos', about_me_path %></li>
+  </footer>
+</body>
+</html>

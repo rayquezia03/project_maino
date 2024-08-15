@@ -1,0 +1,23 @@
+<div class="home-container">
+  <h2>Opções</h2>
+  <p id="message"></p>
+
+  <nav>
+    <ul>
+      <% if user_signed_in? %>
+        <li><%= link_to 'Editar Perfil', edit_user_registration_path %></li>
+        <!-- Botão de Logout -->
+        <li>
+          <%= form_with(url: destroy_user_session_path, method: :delete, local: true) do %>
+            <%= submit_tag 'Logout', class: 'logout-button' %>
+          <% end %>
+        </li>
+      <% else %>
+        <li><%= link_to 'Login', new_user_session_path %></li>
+        <li><%= link_to 'Cadastrar', new_user_registration_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+</div>
+
+<%= javascript_pack_tag 'application' %>

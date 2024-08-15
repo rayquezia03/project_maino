@@ -1,0 +1,31 @@
+# app/views/documents/export.xlsx.axlsx
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Relatório') do |sheet|
+  sheet.add_row ['Número de Série', 'Número da Nota Fiscal', 'Data e Hora de Emissão', 'Emitente Nome', 'Emitente CNPJ', 'Destinatário Nome', 'Destinatário CNPJ', 'Produto Nome', 'Produto NCM', 'Produto CFOP', 'Unidade Comercializada', 'Quantidade Comercializada', 'Valor Unitário', 'Valor ICMS', 'Valor IPI', 'Valor PIS', 'Valor COFINS', 'Total Produtos', 'Total Impostos']
+  
+  @report_data.each do |data|
+    data[:produtos].each do |produto|
+      sheet.add_row [
+        data[:serie],
+        data[:nNF],
+        data[:dhEmi],
+        data[:emitente][:nome],
+        data[:emitente][:cnpj],
+        data[:destinatario][:nome],
+        data[:destinatario][:cnpj],
+        produto[:nome],
+        produto[:ncm],
+        produto[:cfop],
+        produto[:unidade_comercializada],
+        produto[:quantidade_comercializada],
+        produto[:valor_unitario],
+        data[:impostos][:vICMS],
+        data[:impostos][:vIPI],
+        data[:impostos][:vPIS],
+        data[:impostos][:vCOFINS],
+        data[:totalizadores][:total_produtos],
+        data[:totalizadores][:total_impostos]
+      ]
+    end
+  end
+end

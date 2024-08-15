@@ -1,0 +1,10 @@
+<li><%= link_to 'Home', root_path %></li>
+
+
+# <script>
+#   document.addEventListener("DOMContentLoaded", function() {
+#     document.getElementById("click-me").addEventListener("click", function() {
+#       document.getElementById("message").innerText = "Você clicou no botão!";
+#     });
+#   });
+# </script>

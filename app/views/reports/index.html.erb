@@ -1,0 +1,99 @@
+<div class="report-container">
+  <h1>Relatórios</h1>
+  <%= link_to 'Exportar Dados', export_documents_path(format: :xlsx), class: 'btn btn-primary' %>
+
+  <div class="filter-container">
+    <%= form_with(url: reports_path, method: :get, local: true) do |f| %>
+      <div class="filter-group">
+        <%= f.label :nome_emitente, "Nome do Emitente" %>
+        <%= f.select :nome_emitente, options_for_select(@nome_emitente_options, params.dig(:filter, :nome_emitente)), { include_blank: "Selecione" }, class: "filter-select" %>
+      </div>
+
+      <div class="filter-group">
+        <%= f.label :cnpj_emitente, "CNPJ do Emitente" %>
+        <%= f.select :cnpj_emitente, options_for_select(@cnpj_emitente_options, params.dig(:filter, :cnpj_emitente)), { include_blank: "Selecione" }, class: "filter-select" %>
+      </div>
+
+      <div class="filter-group">
+        <%= f.label :nome_destinatario, "Nome do Destinatário" %>
+        <%= f.select :nome_destinatario, options_for_select(@nome_destinatario_options, params.dig(:filter, :nome_destinatario)), { include_blank: "Selecione" }, class: "filter-select" %>
+      </div>
+
+      <div class="filter-group">
+        <%= f.label :uf_emitente, "UF Emitente" %>
+        <%= f.select :uf_emitente, options_for_select(@uf_emitente_options, params.dig(:filter, :uf_emitente)), { include_blank: "Selecione" }, class: "filter-select" %>
+      </div>
+
+      <div class="filter-group">
+        <%= f.label :produto, "Produto" %>
+        <%= f.select :produto, options_for_select(@product_options, params.dig(:filter, :produto)), { include_blank: "Selecione" }, class: "filter-select" %>
+      </div>
+
+      <div class="filter-actions">
+        <%= f.submit "Filtrar", class: "btn-filter" %>
+        <%= link_to "Limpar Filtros", reports_path, class: "btn-clear" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="report-details">
+    <% @reports.each do |report| %>
+      <div class="report-card">
+        <h3>===============================</h3>
+        <p><strong>Número de Série:</strong> <%= report[:document].serie %></p>
+        <p><strong>Número da Nota Fiscal:</strong> <%= report[:document].nNF %></p>
+        <p><strong>Data e Hora de Emissão:</strong> <%= report[:document].dhEmi %></p>
+        <p><strong>Emitente:</strong> <%= report[:document].nome_emitente %> (CNPJ: <%= report[:document].cnpj_emitente %>)</p>
+        <p><strong>Destinatário:</strong> <%= report[:document].nome_destinatario %> (CNPJ: <%= report[:document].cnpj_destinatario %>)</p>
+
+        <h3>Produtos Listados</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>NCM</th>
+              <th>CFOP</th>
+              <th>Unidade</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% report[:products].each do |product| %>
+              <tr>
+                <td><%= product.nome %></td>
+                <td><%= product.ncm %></td>
+                <td><%= product.cfop %></td>
+                <td><%= product.unidade_comercializada %></td>
+                <td><%= product.quantidade_comercializada %></td>
+                <td><%= product.valor_unitario %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <h3>Impostos Associados</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ICMS</th>
+              <th>IPI</th>
+              <th>PIS</th>
+              <th>COFINS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% report[:taxas].each do |taxa| %>
+              <tr>
+                <td><%= taxa.valor_icms %></td>
+                <td><%= taxa.valor_ipi %></td>
+                <td><%= taxa.valor_pis %></td>
+                <td><%= taxa.valor_cofins %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>
