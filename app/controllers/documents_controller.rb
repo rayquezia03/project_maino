@@ -12,6 +12,8 @@ class DocumentsController < ApplicationController
       @service = Importers::IndividualCreate.new(api_params[:file].read, api_params[:file].original_filename)
       @service.call
     end
+
+    # TaskFixFormattingJob.perform_later
   end
 
   def create_import_lote
