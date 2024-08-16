@@ -24,10 +24,10 @@
       margin-bottom: 20px;
     }
     .filter-group {
-      margin-bottom: 15px;
+      margin-bottom: 10px; 
     }
     .filter-actions {
-      margin-top: 15px;
+      margin-top: 10px; 
     }
     .btn-primary, .btn-secondary {
       margin-right: 10px;
@@ -63,11 +63,6 @@
         <div class="filter-group">
           <%= f.label :uf_emitente, "UF Emitente" %>
           <%= f.select :uf_emitente, options_for_select(@uf_emitente_options, params.dig(:filter, :uf_emitente)), { include_blank: "Selecione" }, class: "form-control" %>
-        </div>
-
-        <div class="filter-group">
-          <%= f.label :produto, "Produto" %>
-          <%= f.select :produto, options_for_select(@product_options, params.dig(:filter, :produto)), { include_blank: "Selecione" }, class: "form-control" %>
         </div>
 
         <div class="filter-actions">
