@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2024_08_14_024021) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "documents", force: :cascade do |t|
     t.string "cUF"
     t.string "cNF"
