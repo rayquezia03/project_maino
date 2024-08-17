@@ -161,13 +161,26 @@ module Importers
 
     def products_process(data)
       data[:produtos].each do |produto_data|
-        @document.operation_products.create(produto_data)
+        existing_product = @document.operation_products.find_by(
+          nome: produto_data[:nome],
+          ncm: produto_data[:ncm],
+          cfop: produto_data[:cfop]
+        )
+        unless existing_product
+          @document.operation_products.create(produto_data)
+        end
       end
     end
 
     def taxas_process(data)
-      data[:taxas].each do |taxa_data|
-        @document.taxas.create(taxa_data)
+      existing_taxa = @document.taxas.find_by(
+        valor_icms: data[:taxas].first[:valor_icms],
+        valor_ipi: data[:taxas].first[:valor_ipi],
+        valor_pis: data[:taxas].first[:valor_pis],
+        valor_cofins: data[:taxas].first[:valor_cofins]
+      )
+      unless existing_taxa
+        @document.taxas.create(data[:taxas].first)
       end
     end
   end
