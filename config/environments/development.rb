@@ -32,6 +32,7 @@ Rails.application.configure do
 
   ENV['DATABASE_USER'] = 'ray'
   ENV['DATABASE_PASSWORD'] = '123456'
+  ENV['DATABASE_URL'] = 'postgresql://projectmaino_user:kUTap1bwJdhltaX36rNlkzq6pEKkhKjI@dpg-cqvvgf08fa8c73cskiqg-a/projectmaino'
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

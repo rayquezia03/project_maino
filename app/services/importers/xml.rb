@@ -12,57 +12,57 @@ module Importers
 
       namespace = 'http://www.portalfiscal.inf.br/nfe'
       inf_nfe = doc.at_xpath('//nfe:infNFe', nfe: namespace)
-      
-      ide = inf_nfe.at_xpath('nfe:ide', nfe: namespace)
+
       if inf_nfe
-        cUF = ide&.at_xpath('nfe:cUF', nfe: namespace)&.text
-        cNF = ide&.at_xpath('nfe:cNF', nfe: namespace)&.text
-        natOp = ide&.at_xpath('nfe:natOp', nfe: namespace)&.text
-        mod = ide&.at_xpath('nfe:mod', nfe: namespace)&.text
-        serie = ide&.at_xpath('nfe:serie', nfe: namespace)&.text
-        nNF = ide&.at_xpath('nfe:nNF', nfe: namespace)&.text
-        dhEmi = ide&.at_xpath('nfe:dhEmi', nfe: namespace)&.text
-        tpNF = ide&.at_xpath('nfe:tpNF', nfe: namespace)&.text
-        idDest = ide&.at_xpath('nfe:idDest', nfe: namespace)&.text
-        cMunFG = ide&.at_xpath('nfe:cMunFG', nfe: namespace)&.text
-        tpImp = ide&.at_xpath('nfe:tpImp', nfe: namespace)&.text
-        tpEmis = ide&.at_xpath('nfe:tpEmis', nfe: namespace)&.text
-        cDV = ide&.at_xpath('nfe:cDV', nfe: namespace)&.text
-        tpAmb = ide&.at_xpath('nfe:tpAmb', nfe: namespace)&.text
-        chave_acesso = inf_nfe&.attr('Id')&.sub(/^NFe/, '')
+        ide = inf_nfe.at_xpath('nfe:ide', nfe: namespace)
+        cUF = ide&.at_xpath('nfe:cUF', nfe: namespace)&.text&.strip
+        cNF = ide&.at_xpath('nfe:cNF', nfe: namespace)&.text&.strip
+        natOp = ide&.at_xpath('nfe:natOp', nfe: namespace)&.text&.strip
+        mod = ide&.at_xpath('nfe:mod', nfe: namespace)&.text&.strip
+        serie = ide&.at_xpath('nfe:serie', nfe: namespace)&.text&.strip
+        nNF = ide&.at_xpath('nfe:nNF', nfe: namespace)&.text&.strip
+        dhEmi = ide&.at_xpath('nfe:dhEmi', nfe: namespace)&.text&.strip
+        tpNF = ide&.at_xpath('nfe:tpNF', nfe: namespace)&.text&.strip
+        idDest = ide&.at_xpath('nfe:idDest', nfe: namespace)&.text&.strip
+        cMunFG = ide&.at_xpath('nfe:cMunFG', nfe: namespace)&.text&.strip
+        tpImp = ide&.at_xpath('nfe:tpImp', nfe: namespace)&.text&.strip
+        tpEmis = ide&.at_xpath('nfe:tpEmis', nfe: namespace)&.text&.strip
+        cDV = ide&.at_xpath('nfe:cDV', nfe: namespace)&.text&.strip
+        tpAmb = ide&.at_xpath('nfe:tpAmb', nfe: namespace)&.text&.strip
+        chave_acesso = inf_nfe&.attr('Id')&.sub(/^NFe/, '')&.strip
 
         emitente = inf_nfe.at_xpath('nfe:emit', nfe: namespace)
-        nome_emitente = emitente&.at_xpath('nfe:xNome', nfe: namespace)&.text
-        cnpj_emitente = emitente&.at_xpath('nfe:CNPJ', nfe: namespace)&.text
+        nome_emitente = emitente&.at_xpath('nfe:xNome', nfe: namespace)&.text&.strip
+        cnpj_emitente = emitente&.at_xpath('nfe:CNPJ', nfe: namespace)&.text&.strip
         endereco_emitente = emitente&.at_xpath('nfe:enderEmit', nfe: namespace)
-        logradouro_emitente = endereco_emitente&.at_xpath('nfe:xLgr', nfe: namespace)&.text
-        numero_emitente = endereco_emitente&.at_xpath('nfe:nro', nfe: namespace)&.text
-        bairro_emitente = endereco_emitente&.at_xpath('nfe:xBairro', nfe: namespace)&.text
-        municipio_emitente = endereco_emitente&.at_xpath('nfe:xMun', nfe: namespace)&.text
-        uf_emitente = endereco_emitente&.at_xpath('nfe:UF', nfe: namespace)&.text
-        cep_emitente = endereco_emitente&.at_xpath('nfe:CEP', nfe: namespace)&.text
+        logradouro_emitente = endereco_emitente&.at_xpath('nfe:xLgr', nfe: namespace)&.text&.strip
+        numero_emitente = endereco_emitente&.at_xpath('nfe:nro', nfe: namespace)&.text&.strip
+        bairro_emitente = endereco_emitente&.at_xpath('nfe:xBairro', nfe: namespace)&.text&.strip
+        municipio_emitente = endereco_emitente&.at_xpath('nfe:xMun', nfe: namespace)&.text&.strip
+        uf_emitente = endereco_emitente&.at_xpath('nfe:UF', nfe: namespace)&.text&.strip
+        cep_emitente = endereco_emitente&.at_xpath('nfe:CEP', nfe: namespace)&.text&.strip
 
         destinatario = inf_nfe.at_xpath('nfe:dest', nfe: namespace)
-        nome_destinatario = destinatario&.at_xpath('nfe:xNome', nfe: namespace)&.text
-        cnpj_destinatario = destinatario&.at_xpath('nfe:CNPJ', nfe: namespace)&.text
+        nome_destinatario = destinatario&.at_xpath('nfe:xNome', nfe: namespace)&.text&.strip
+        cnpj_destinatario = destinatario&.at_xpath('nfe:CNPJ', nfe: namespace)&.text&.strip
         endereco_destinatario = destinatario&.at_xpath('nfe:enderDest', nfe: namespace)
-        logradouro_destinatario = endereco_destinatario&.at_xpath('nfe:xLgr', nfe: namespace)&.text
-        numero_destinatario = endereco_destinatario&.at_xpath('nfe:nro', nfe: namespace)&.text
-        bairro_destinatario = endereco_destinatario&.at_xpath('nfe:xBairro', nfe: namespace)&.text
-        municipio_destinatario = endereco_destinatario&.at_xpath('nfe:xMun', nfe: namespace)&.text
-        uf_destinatario = endereco_destinatario&.at_xpath('nfe:UF', nfe: namespace)&.text
-        cep_destinatario = endereco_destinatario&.at_xpath('nfe:CEP', nfe: namespace)&.text
+        logradouro_destinatario = endereco_destinatario&.at_xpath('nfe:xLgr', nfe: namespace)&.text&.strip
+        numero_destinatario = endereco_destinatario&.at_xpath('nfe:nro', nfe: namespace)&.text&.strip
+        bairro_destinatario = endereco_destinatario&.at_xpath('nfe:xBairro', nfe: namespace)&.text&.strip
+        municipio_destinatario = endereco_destinatario&.at_xpath('nfe:xMun', nfe: namespace)&.text&.strip
+        uf_destinatario = endereco_destinatario&.at_xpath('nfe:UF', nfe: namespace)&.text&.strip
+        cep_destinatario = endereco_destinatario&.at_xpath('nfe:CEP', nfe: namespace)&.text&.strip
 
         produtos = []
         inf_nfe.xpath('nfe:det', nfe: namespace).each do |det|
           produto = {
-            nome: det.at_xpath('nfe:prod/nfe:xProd', nfe: namespace)&.text,
-            ncm: det.at_xpath('nfe:prod/nfe:NCM', nfe: namespace)&.text,
-            cfop: det.at_xpath('nfe:prod/nfe:CFOP', nfe: namespace)&.text,
-            unidade_comercializada: det.at_xpath('nfe:prod/nfe:uCom', nfe: namespace)&.text,
-            quantidade_comercializada: det.at_xpath('nfe:prod/nfe:qCom', nfe: namespace)&.text,
-            valor_unitario: det.at_xpath('nfe:prod/nfe:vUnCom', nfe: namespace)&.text,
-            valor_total: det.at_xpath('nfe:prod/nfe:vProd', nfe: namespace)&.text
+            nome: det.at_xpath('nfe:prod/nfe:xProd', nfe: namespace)&.text&.strip,
+            ncm: det.at_xpath('nfe:prod/nfe:NCM', nfe: namespace)&.text&.strip,
+            cfop: det.at_xpath('nfe:prod/nfe:CFOP', nfe: namespace)&.text&.strip,
+            unidade_comercializada: det.at_xpath('nfe:prod/nfe:uCom', nfe: namespace)&.text&.strip,
+            quantidade_comercializada: det.at_xpath('nfe:prod/nfe:qCom', nfe: namespace)&.text&.strip,
+            valor_unitario: det.at_xpath('nfe:prod/nfe:vUnCom', nfe: namespace)&.text&.strip,
+            valor_total: det.at_xpath('nfe:prod/nfe:vProd', nfe: namespace)&.text&.strip
           }
           produtos << produto
         end
@@ -72,10 +72,10 @@ module Importers
         icms_tot = total.at_xpath('nfe:ICMSTot', nfe: namespace)
 
         taxa = {
-          valor_icms: icms_tot&.at_xpath('nfe:vICMS', nfe: namespace)&.text,
-          valor_ipi: icms_tot&.at_xpath('nfe:vIPI', nfe: namespace)&.text,
-          valor_pis: icms_tot&.at_xpath('nfe:vPIS', nfe: namespace)&.text,
-          valor_cofins: icms_tot&.at_xpath('nfe:vCOFINS', nfe: namespace)&.text
+          valor_icms: icms_tot&.at_xpath('nfe:vICMS', nfe: namespace)&.text&.strip,
+          valor_ipi: icms_tot&.at_xpath('nfe:vIPI', nfe: namespace)&.text&.strip,
+          valor_pis: icms_tot&.at_xpath('nfe:vPIS', nfe: namespace)&.text&.strip,
+          valor_cofins: icms_tot&.at_xpath('nfe:vCOFINS', nfe: namespace)&.text&.strip
         }
         taxas << taxa
 
