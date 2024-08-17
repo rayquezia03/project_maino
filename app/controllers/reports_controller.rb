@@ -51,4 +51,12 @@ class ReportsController < ApplicationController
   
     reports
   end  
+
+  def reset_database
+    Document.delete_all
+    OperationProduct.delete_all
+    Taxa.delete_all
+
+    redirect_to reports_path
+  end
 end

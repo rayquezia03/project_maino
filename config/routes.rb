@@ -1,12 +1,19 @@
 Rails.application.routes.draw do
-  # get 'documents/new'
-  # get 'documents/create'
-
-  resources :documents, only: [:new, :create]
-  devise_for :users
   root 'pages#home'
-  get 'documents/export', to: 'documents#export', as: 'export_documents'
-  resources :reports, only: [:index]
-  
+
+  devise_for :users
+
+  resources :documents, only: [:new, :create] do
+    collection do
+      get 'export', to: 'documents#export', as: 'export'
+    end
+  end
+
+  resources :reports, only: [:index] do
+    collection do
+      delete 'reset_database', to: 'reports#reset_database'
+    end
+  end
+
   get 'about_me', to: 'pages#about_me'
 end
