@@ -25,3 +25,5 @@ Para acessar, você pode usar o seguinte login:
 - **Senha**: 123456
 
 Alternativamente, você tbm pode criar um novo login.
+
+O servidor utilizado para a hospedagem (Render) pode demorar um pouquinho pra fazer o primeiro carregamento após um período sem fazer requisições, devido a mecânica mais limitada dos recursos no plano free.
